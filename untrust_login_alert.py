@@ -102,6 +102,7 @@ def untrust_login():
         untrustLogin = []
         if newLogin != []:
             print("New login found")
+            print(*newLogin, spec = "\n")
             for loginStr in newLogin:
                 inWhiteList = in_white_list(loginStr)
                 if inWhiteList != True:

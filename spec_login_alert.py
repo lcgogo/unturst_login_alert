@@ -14,6 +14,7 @@ import local_settings
 import time
 from pagerduty import trigger_incident
 from imp import reload
+from mail import send_mail
 
 ############
 # SETTINGS #
@@ -125,6 +126,7 @@ if __name__ == '__main__':
         if untrustLogin != None:
             summary = str(untrustLogin)
             title = "Untrust login found"
-            # TODO add send mail
-            # send_mail(title, message = summary)
-            trigger_incident(summary)
+            try:
+                trigger_incident(summary)
+            finally:
+                send_mail(title, message = summary, debug = 1)

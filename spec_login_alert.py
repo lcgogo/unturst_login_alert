@@ -22,9 +22,6 @@ dirname, filename = os.path.split(os.path.abspath(__file__))
 # how long to sleep between two checks, default 2 secs
 CHECK_INTERVAL = 2  # unit, seconds
 
-PAGERDUTY_API_ACCESS_KEY = local_settings.PAGERDUTY_API_ACCESS_KEY
-PAGERDUTY_ROUTING_KEY = local_settings.PAGERDUTY_ROUTING_KEY
-
 try:
     LOGIN_WHITE_LIST = local_settings.LOGIN_WHITE_LIST
 except:

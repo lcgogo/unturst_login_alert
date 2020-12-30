@@ -1,0 +1,8 @@
+from_addr = untrust_login@cobo.one
+smtp_server = "smtp.example.com"
+# QQ企业邮箱端口465，用SMTP_SSL
+smtp_port = 465
+smtp_user = <smtp_user>
+password = <smtp_password>
+devops_addr = "13911983435@163.com,13911983435@139.com"
+debug_addr = "lcgogo123@163.com"

@@ -1,4 +1,4 @@
-# spec_login_alert
+# untrust_login_alert
 send alert to pageduty or email if untrust user login from last log
 
 ```shell

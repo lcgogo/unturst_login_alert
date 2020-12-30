@@ -1,8 +1,8 @@
 #!/bin/sh
 
 SHELL_FOLDER=$(cd "$(dirname "$0")";pwd)
-PROCESS=spec_login_alert
-DESCRIPTION="send alert when new user login"
+PROCESS=untrust_login_alert
+DESCRIPTION="send alert when untrust user login"
 
 if [ ! -f "${SHELL_FOLDER}/${PROCESS}.py" ];then
   echo Not found "${SHELL_FOLDER}/${PROCESS}.py Exit Now."

@@ -13,6 +13,7 @@ import subprocess,shlex
 import local_settings
 import time
 from pagerduty import trigger_incident
+from imp import reload
 
 ############
 # SETTINGS #
@@ -42,7 +43,7 @@ return_not_matches(a,b)
 def get_last():
     # use linux command : last -a
     # to get the latest login user
-    cmd = "last -adFi"
+    cmd = "last -awdFi"
     cmd = shlex.split(cmd)
     try:
         lastResult = subprocess.check_output(cmd)
@@ -61,7 +62,26 @@ def get_last():
         return False 
 
 
-def new_login():
+def in_white_list(loginStr):
+    if LOGIN_WHITE_LIST == []:
+        return False
+    else:
+        loginList = loginStr.split()
+        user = loginList[0]
+        ip = loginList[-1]
+        loginDict = {"user": user, "ip": ip}
+        loginAllAddr = {"user": user, "ip": "*"}
+        loginAllUser = {"user": "*", "ip": ip}
+    if loginDict in LOGIN_WHITE_LIST:  # {"user": "foo1", "ip": "123.123.123.123"}
+        return True
+    if loginAllAddr in LOGIN_WHITE_LIST:  # {"user": "foo2", "ip": "*"}
+        return True
+    if loginAllUser in LOGIN_WHITE_LIST:  # {"user": "*", "ip": "124.124.124.124"}
+        return True
+    return False
+    
+
+def untrust_login():
     lastNow = get_last()
     time.sleep(2)
     lastLater = get_last()
@@ -75,9 +95,17 @@ def new_login():
             # reboot   system boot  Wed Dec 30 22:47:10 2020
             # and ignore closed user after log out
                 newLogin.append(line)
+        untrustLogin = []
         if newLogin != []:
             print("New login found")
-            return newLogin
+            for loginStr in newLogin:
+                inWhiteList = in_white_list(loginStr)
+                if inWhiteList != True:
+                    untrustLogin.append(loginStr)
+            if untrustLogin != []:
+                return untrustLogin
+            else:
+                return None
         else:
             #print("No new login, sleep 2 secs")
             return None
@@ -88,10 +116,15 @@ def new_login():
 
 if __name__ == '__main__':
     while True:
-        newLogin = new_login()
-        if newLogin != None:
-            summary = str(newLogin)
-            title = "New login found"
+        reload(local_settings)
+        try:
+            LOGIN_WHITE_LIST = local_settings.LOGIN_WHITE_LIST
+        except:
+            LOGIN_WHITE_LIST = []
+        untrustLogin = untrust_login()
+        if untrustLogin != None:
+            summary = str(untrustLogin)
+            title = "Untrust login found"
             # TODO add send mail
             # send_mail(title, message = summary)
             trigger_incident(summary)

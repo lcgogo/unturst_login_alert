@@ -72,9 +72,11 @@ def new_login():
         (newLast, oldestLast) = return_not_matches(lastNow, lastLater)
         newLogin = []
         for line in newLast:
-            if not re.match("reboot   system boot", line):
+            if not re.match("reboot   system boot", line) \
+               and re.search("still logged in", line):  # if you want to alert logout, remove this line
             # remove lines of reboot like below
             # reboot   system boot  Wed Dec 30 22:47:10 2020
+            # and ignore closed user after log out
                 newLogin.append(line)
         if newLogin != []:
             print("New login found")

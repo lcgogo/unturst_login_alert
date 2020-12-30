@@ -1,18 +1,18 @@
 import json
 import requests
 
-from local_settings import PAGERDUTY_API_ACCESS_KEY, PAGERDUTY_ROUTING_KEY
+from local_settings import PAGERDUTY_ROUTING_KEY
+from local_settings import HOSTNAME, HOSTIP
 
 
 def trigger_incident(summary):
     headers = {
-        'Authorization': 'Token token={}'.format(PAGERDUTY_API_ACCESS_KEY),
         'Content-type': 'application/json',
     }
     data = {
         "payload": {
-            "summary": summary,
-            "source": "test",
+            "summary": HOSTNAME + " " + HOSTIP + " " + summary,
+            "source": HOSTNAME + " " + HOSTIP,
             "severity": "warning"
         },
         "routing_key": PAGERDUTY_ROUTING_KEY,

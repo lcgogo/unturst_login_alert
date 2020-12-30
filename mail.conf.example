@@ -1,4 +1,4 @@
-from_addr = untrust_login@cobo.one
+from_addr = untrust_login@example.com
 smtp_server = "smtp.example.com"
 # QQ企业邮箱端口465，用SMTP_SSL
 smtp_port = 465

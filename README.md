@@ -5,6 +5,7 @@ send alert to pageduty or email if untrust user login from last log
 git clone <this_repo>
 cd <this_repo>
 cp local_settings.py.example local_settings.py
+cp mail.conf.example mail.conf
 # add config
 vi local_settings.py
 vi mail.conf

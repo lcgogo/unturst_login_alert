@@ -1,5 +1,5 @@
 # spec_login_alert
-send alert to pageduty or email if spec one login from last log
+send alert to pageduty or email if untrust user login from last log
 
 ```shell
 git clone <this_repo>

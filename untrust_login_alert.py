@@ -24,6 +24,9 @@ dirname, filename = os.path.split(os.path.abspath(__file__))
 # how long to sleep between two checks, default 2 secs
 CHECK_INTERVAL = 2  # unit, seconds
 
+# DEBUG = 0 will send mail to mail.conf devops_addr, other will send to debug_addr
+DEBUG = 1
+
 try:
     LOGIN_WHITE_LIST = local_settings.LOGIN_WHITE_LIST
 except:
@@ -129,4 +132,4 @@ if __name__ == '__main__':
             try:
                 trigger_incident(summary)
             finally:
-                send_mail(title, message = summary, debug = 1)
+                send_mail(title, message = summary, debug = DEBUG)

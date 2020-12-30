@@ -14,3 +14,11 @@ pip3 install requests
 # Start Option 2 (normal user):
 python3 untrust_login_alert.py 1> untrust_login_alert.log 2>&1 & 
 ```
+
+log
+```shell
+# If start by systemd
+journalctl -u untrust_login_alert.service
+# Or start by background
+<this_repo>/untrust_login_alert.log
+```

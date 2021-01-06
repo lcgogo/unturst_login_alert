@@ -102,7 +102,7 @@ def untrust_login():
         untrustLogin = []
         if newLogin != []:
             print("New login found")
-            print(*newLogin, spec = "\n")
+            for line in newLogin: print(line)
             for loginStr in newLogin:
                 inWhiteList = in_white_list(loginStr)
                 if inWhiteList != True:
@@ -116,7 +116,7 @@ def untrust_login():
             return None
     else:
         return None
-        #print("No new login, sleep 2 secs")
+        print("No new login, sleep 2 secs")
 
 
 if __name__ == '__main__':
